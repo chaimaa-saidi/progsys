@@ -1,12 +1,10 @@
-obj = complexe.o usecomplexe.o
-c = gcc
-flags = -Wall
-
-
-usecomplexe : $(obj)
-	$(c) $(flags) $(obj) -o usecomplexe -lm
-usecomplexe.o : usecomplexe.c complexe.h
-	$(c) $(flags) -c usecomplexe.c -lm
-complexe.o : complexe.c complexe.h
-	 $(c) $(flags) -c complexe.c -lm
-#commentaire
+all : $(APPLI) clean
+$(APPLI) : $(APPLI).o complexe.o 
+	gcc -Wall $(APPLI).o complexe.o -o $(APPLI)
+$(APPLI).o : $(APPLI).c complexe.h
+	gcc -Wall -c $(APPLI).c
+complexe.o : complexe.c complexe.h 
+	gcc -Wall -c complexe.c
+#suppression des fichiers objet
+clean : $(APPLI)
+	rm -f *.o
